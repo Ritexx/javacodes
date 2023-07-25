@@ -1,0 +1,73 @@
+// R RITESH
+// 1NT21IS121
+
+//Design a java Program to add two matrix using multi-dimensional arrays, pass two dimensional array as parameter to the method
+
+
+class Sum{
+    void add(int a[][], int b[][], int m, int n)
+    {
+        int i,j;
+        int res[][] = new int[m][n];
+        System.out.println("Matrix after addition");
+        for(i=0; i<m; i++)
+        {
+            for(j=0; j<n; j++)
+            {
+                res[i][j] = a[i][j] + b[i][j];
+            }
+        }
+        for(i=0; i<m; i++)
+        {
+            for(j=0; j<n; j++)
+            {
+                System.out.print(res[i][j]+"\t");
+            }
+            System.out.println();
+        }
+    }
+}
+
+public class Addition{
+
+    public static void main(String[] args) {
+
+        System.out.println("Enter no. of rows and cols");
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int a[][] = new int[m][n];
+        int b[][] = new int[m][n];
+        System.out.println("Enter matrix 1");
+        for(int i=0; i<m; i++)
+        {
+            for(int j =0; j<n; j++)
+            {
+                a[i][j] = sc.nextInt();
+            }
+        }
+        System.out.println("Enter matrix 2");
+        for(int i=0; i<m; i++)
+        {
+            for(int j =0; j<n; j++)
+            {
+                b[i][j] = sc.nextInt();
+            }
+        }
+
+        Sum obj = new Sum();
+        obj.add(a,b,m,n);
+        
+    }
+}
+
+Output:
+
+
+
+
+ 
+
+
+https://github.com/Ritexx/javacodes.git
+
