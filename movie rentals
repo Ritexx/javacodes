@@ -1,0 +1,126 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Video {
+    private String title;
+    private double rating;
+    private boolean available = true;
+
+    public Video(String title, double rating) {
+        this.title = title;
+        this.rating = rating;
+    }
+
+    public void rent() {
+        if (available) {
+            available = false;
+        }
+    }
+
+    public void returnVideo(double newRating) {
+        if (!available) {
+            available = true;
+            rating = newRating;
+        }
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+}
+
+public class VideoStore {
+    private List<Video> inventory = new ArrayList<>();
+
+    public void addVideo(String title, double rating) {
+        inventory.add(new Video(title, rating));
+    }
+
+    public void displayInventory() {
+        System.out.println("%%%%%%%% VIDEO LIBRARY CENTER %%%%%%%%");
+        for (Video video : inventory) {
+            System.out.println("Title: " + video.getTitle());
+            System.out.println("Rating: " + video.getRating());
+            System.out.println("Availability: " + (video.isAvailable() ? "Available" : "Not Available"));
+            System.out.println();
+        }
+    }
+
+    public void rentVideo(String title) {
+        for (Video video : inventory) {
+            if (video.getTitle().equalsIgnoreCase(title) && video.isAvailable()) {
+                video.rent();
+                System.out.println("Rented: " + title);
+                return;
+            }
+        }
+        System.out.println("Sorry, " + title + " is not available for rent.");
+    }
+
+    public void collectVideo(String title, double newRating) {
+        for (Video video : inventory) {
+            if (video.getTitle().equalsIgnoreCase(title) && !video.isAvailable()) {
+                video.returnVideo(newRating);
+                System.out.println("Collected: " + title + " with new rating: " + newRating);
+                return;
+            }
+        }
+        System.out.println("Sorry, " + title + " is not currently rented or doesn't exist.");
+    }
+
+    public static void main(String[] args) {
+        VideoStore videoStore = new VideoStore();
+        Scanner in = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("1. Add Movies");
+            System.out.println("2. Display Movies");
+            System.out.println("3. Rent Out");
+            System.out.println("4. Collect Back");
+            System.out.println("5. Exit");
+            System.out.println("Please enter your option: ");
+
+            int choice = in.nextInt();
+            in.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the title of the movie: ");
+                    String title = in.nextLine();
+                    System.out.print("Enter the rating of the movie: ");
+                    double rating = in.nextDouble();
+                    videoStore.addVideo(title, rating);
+                    break;
+                case 2:
+                    videoStore.displayInventory();
+                    break;
+                case 3:
+                    System.out.print("Enter the title of the movie you want to rent: ");
+                    String rentTitle = in.nextLine();
+                    videoStore.rentVideo(rentTitle);
+                    break;
+                case 4:
+                    System.out.print("Enter the title of the movie you want to collect: ");
+                    String collectTitle = in.nextLine();
+                    System.out.print("Enter the new rating: ");
+                    double newRating = in.nextDouble();
+                    videoStore.collectVideo(collectTitle, newRating);
+                    break;
+                case 5:
+                    System.out.println("Exiting the program.");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid option. Please choose a valid option.");
+            }
+        }
+    }
+} 
