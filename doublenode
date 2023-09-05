@@ -1,0 +1,64 @@
+class Node {
+    int data;
+    Node next;
+    Node prev;
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+class DoublyLinkedList {
+    Node head;
+    Node tail;
+
+    public void append(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = tail = newNode;
+        } else {
+            newNode.prev = tail;
+            tail.next = newNode;
+            tail = newNode;
+        }
+    }
+
+    public void findMinMax() {
+        if (head == null) {
+            System.out.println("The list is empty.");
+            return;
+        }
+
+        int min = head.data;
+        int max = head.data;
+        Node current = head;
+
+        while (current != null) {
+            if (current.data < min) {
+                min = current.data;
+            }
+            if (current.data > max) {
+                max = current.data;
+            }
+            current = current.next;
+        }
+
+        System.out.println("Minimum value: " + min);
+        System.out.println("Maximum value: " + max);
+    }
+}
+
+public class nodes {
+    public static void main(String[] args) {
+        DoublyLinkedList list = new DoublyLinkedList();
+        list.append(10);
+        list.append(5);
+        list.append(15);
+        list.append(2);
+        list.append(20);
+
+        list.findMinMax();
+    }
+}
