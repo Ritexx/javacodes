@@ -1,81 +1,90 @@
-// R Ritesh 
-// 1NT21IS121
+import java.util.Scanner;
 
-//  Develop a small java program which accepts employee id from the command prompt and display the details using arrays
+public class EmployeeDetails {
+    public static void main(String[] args) {
+        // Arrays to store employee details
+        int[] empNo = {1001, 1002, 1003, 1004, 1005, 1006, 1007};
+        String[] empName = {"Abc", "Opqr", "Ghi", "Wxyz", "Jklmn", "Stuv", "Def"};
+        String[] joinDate = {"01/04/2009", "23/8/2012", "12/11/2008", "29/1/2013", "16/07/2005", "01/01/2000", "12/06/2006"};
+        String[] desigCode = {"E", "PM", "K", "R", "M", "E", "C"};
+        String[] dept = {"R&D", "PM", "Acct", "Front Desk", "M", "Engg", "Manufacturing"};
+        double[] basic = {20000, 30000, 10000, 12000, 0, 23000, 29000};
+        double[] hra = {8000, 12000, 8000, 6000, 0, 9000, 12000};
+        double[] it = {3000, 9000, 1000, 2000, 0, 4400, 0};
 
+        // Display prompt and accept employee ID from the user
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Employee ID: ");
+        int employeeId = scanner.nextInt();
 
-import java.util.Date;
-import java.util.Stack;
+        // Find the index of the entered employee ID in the array
+        int index = -1;
+        for (int i = 0; i < empNo.length; i++) {
+            if (empNo[i] == employeeId) {
+                index = i;
+                break;
+            }
+        }
 
-public class Employee 
-{
-	public static void main(String[] args)
-	{
-		System.out.println("Enter Valid Employee ID : \n");
-		int[] EmpId={1001,1002,1003,1004,1005,1006,1007};
-		String[] EmpName={"Abc","Opqr","Ghi","Wxyz","Jklmn","Stuv","Def"};
-		String[] JoinDate={"01/04/2009","23/08/2012","12/11/2008","29/01/2013","16/07/2005","01/01/2000","12/06/2006"};
-		char[] DesigCode={'e','c','k','r','m','e','c'};
-		String[] Department={"R&D","PM","Acct","Front Desk","Engg","Manufacturing","PM"};
-		double[] Basic={20000,30000,10000,12000,50000,23000,29000};
-		double[] HRA={8000,12000,8000,6000,20000,9000,12000};
-		double[] IT={3000,9000,1000,2000,20000,4400,10000};
-		char[] DesignationCode={'e','c','k','r','m'};
-		String[] Designation={"Engineer","Consultant","Clerk","Receptionist","Manager"};
-		double[] DA={20000,32000,12000,15000,40000};
-		int flag=0;
-		int id=Integer.parseInt(args[0]);
-		
-		for(int i=0;i<EmpId.length;i++)
-		{
-			if(EmpId[i]==id)
-			{
-				flag=1;
-				System.out.println("Emp Id.	 Emp Name	Department	Designation	   DA");
-				System.out.print(EmpId[i]+" 	  "+EmpName[i]+" 		"+Department[i]);
-				for(int j=0;j<DesignationCode.length;j++)
-				{
-					if(DesigCode[i]==DesignationCode[j])
-					{	System.out.print(" 		"+Designation[j]+" 	");
-						double sum=Basic[i]+HRA[i]+DA[j]-IT[i];
-						System.out.print(sum);
-					}
-				}		
-			}	
-		}
-		if(flag==0)
-			System.out.println("There is no employee with EmpId : " +id);
-	}
+        // Check if the employee ID was found
+        if (index != -1) {
+            // Calculate DA based on designation code
+            double da = 0;
+            switch (desigCode[index]) {
+                case "E":
+                    da = 20000;
+                    break;
+                case "PM":
+                    da = 32000;
+                    break;
+                case "K":
+                    da = 12000;
+                    break;
+                case "R":
+                    da = 15000;
+                    break;
+                case "M":
+                    da = 40000;
+                    break;
+            }
+
+            // Calculate total salary
+            double totalSalary = basic[index] + hra[index] + da - it[index];
+
+            // Display employee details
+            System.out.println("Emp No: " + empNo[index]);
+            System.out.println("Emp Name: " + empName[index]);
+            System.out.println("Join Date: " + joinDate[index]);
+            System.out.println("Desig Code: " + desigCode[index]);
+            System.out.println("Dept: " + dept[index]);
+            System.out.println("Basic: " + basic[index]);
+            System.out.println("HRA: " + hra[index]);
+            System.out.println("IT: " + it[index]);
+            System.out.println("Designation: " + getDesignation(desigCode[index]));
+            System.out.println("Total Salary: " + totalSalary);
+        } else {
+            System.out.println("Employee not found.");
+        }
+
+        // Close the scanner
+        scanner.close();
+    }
+
+    // Function to get the designation based on the designation code
+    public static String getDesignation(String code) {
+        switch (code) {
+            case "E":
+                return "Engineer";
+            case "PM":
+                return "Consultant";
+            case "K":
+                return "Clerk";
+            case "R":
+                return "Receptionist";
+            case "M":
+                return "Manager";
+            default:
+                return "Unknown";
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
